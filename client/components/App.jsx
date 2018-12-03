@@ -2,12 +2,13 @@ import React from 'react';
 import axios from 'axios';
 
 const calculateROI = trades => trades.reduce((total, trade) => {
+  let tempROI = total;
   if (trade.type === 'sell') {
-    total -= trade.volume;
+    tempROI -= trade.volume;
   } else {
-    total += trade.volume;
+    tempROI += trade.volume;
   }
-  return total;
+  return tempROI;
 }, 1) - 1 / 1;
 
 class App extends React.Component {
