@@ -1,11 +1,13 @@
 const express = require('express');
 const parseBody = require('body-parser');
+const path = require('path');
 const dbController = require('../database/index.js');
 
 const PORT = 8080;
 
 const app = express();
 app.use(parseBody.json());
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/:userID/trades', (req, res) => {
   const { userID } = req.params;
