@@ -49,7 +49,7 @@ class App extends React.Component {
     this.getOrderBook('poloniex');
     this.getOrderBook('hitbtc');
     this.getUserTrades(userID);
-    setInterval(() => this.refreshOrderBook('poloniex'), 1000);
+    setInterval(() => this.refreshOrderBook('poloniex'), 2000);
   }
 
   setSpread() {
@@ -132,7 +132,7 @@ class App extends React.Component {
           </div>
           <div>
             ROI:
-            {((ROI - 1) * 100).toFixed(6)}
+            {((ROI - 1) * 100).toFixed(3)}
             %
           </div>
         </div>
@@ -142,7 +142,7 @@ class App extends React.Component {
           lowestAsk={lowestAsk}
           highestBid={highestBid}
         />
-        <button disabled={disabledButton} type="submit" onClick={() => this.handleClick()}>Trade!</button>
+        <button disabled={disabledButton} type="submit" onClick={() => this.handleClick()}>Execute</button>
       </div>
     );
   }

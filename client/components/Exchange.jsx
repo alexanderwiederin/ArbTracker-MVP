@@ -13,11 +13,11 @@ const Exchange = ({ exchangeData, exchangeName }) => {
         <div className="bidask">
           {exchangeName}
           <div>
-            bid:
+            Bid:
             USDT {bids[0][0].toString()}
           </div>
           <div>
-            ask:
+            Ask:
             USDT {asks[0][0].toString()}
           </div>
         </div>

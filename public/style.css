@@ -1,5 +1,8 @@
 body {
     background-color: #c8ddc8;
+    font-family: Arial;
+    line-height: 23px;
+    font-size: 18px;
 }
 
 img {
@@ -11,12 +14,12 @@ img {
 }
 
 button {
-  color: red;
   position: absolute;
   left: 575px;
   top: 250px;
   width: 150px;
   height: 50px;
+  font-size: 25px;
 }
 
 .exchange {
@@ -27,6 +30,7 @@ button {
   height: 300px;
   margin: 20px;
   background: #73AD21;
+  border-radius: 25px;
 }
 
 .overview {
@@ -63,6 +67,8 @@ button {
   width: 250px;
   height: 75px;
   display: flex-inline;
+  border-radius: 25px;
+  line-height: 37px;
 }
 
 .bidask {
@@ -70,4 +76,6 @@ button {
   top: 75px;
   left: 0px;
   display: flex-inline;
+  background: white;
+  border-radius: 25px;
 }
