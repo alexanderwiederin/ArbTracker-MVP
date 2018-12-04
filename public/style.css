@@ -79,3 +79,17 @@ button {
   background: white;
   border-radius: 25px;
 }
+
+.spread {
+  position: absolute;
+  top: 340px;
+  left: 520px;
+  text-align: center;
+  border: 3px solid #73AD21;
+  background: white;
+  width: 250px;
+  height: 60px;
+  display: flex-inline;
+  border-radius: 25px;
+  line-height: 30px;
+}

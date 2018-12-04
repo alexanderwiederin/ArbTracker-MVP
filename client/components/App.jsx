@@ -143,6 +143,10 @@ class App extends React.Component {
           highestBid={highestBid}
         />
         <button disabled={disabledButton} type="submit" onClick={() => this.handleClick()}>Execute</button>
+        <div className="spread">
+          <div>USDT {highestBid.bid ? (highestBid.bid[0] - lowestAsk.ask[0]).toFixed(3) : null}</div>
+          <div>{highestBid.bid ? (((highestBid.bid[0] - lowestAsk.ask[0])/lowestAsk.ask[0])*100).toFixed(2) : null}%</div>
+        </div>
       </div>
     );
   }
