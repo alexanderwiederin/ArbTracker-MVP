@@ -1,0 +1,73 @@
+body {
+    background-color: #c8ddc8;
+}
+
+img {
+  width: 360px;
+  height: 130px;
+  position: relative;
+  left: 0px;
+  top: 15px;
+}
+
+button {
+  color: red;
+  position: absolute;
+  left: 575px;
+  top: 250px;
+  width: 150px;
+  height: 50px;
+}
+
+.exchange {
+  display: flex-inline;
+  position: absolute;
+  top: 150px;
+  text-align: center;
+  height: 300px;
+  margin: 20px;
+  background: #73AD21;
+}
+
+.overview {
+  display: flex;
+}
+
+#hitbtc {
+    position: absolute;
+    right: 0px;
+    width: 400px;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    top: 100px;
+    text-align: center;
+}
+
+#poloniex {
+    position: absolute;
+    text-align: center;
+    left: 0px;
+    width: 400px;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    top: 100px;
+}
+
+.account {
+  position: absolute;
+  top: 50px;
+  left: 520px;
+  text-align: center;
+  border: 3px solid #73AD21;
+  background: #73AD21;
+  width: 250px;
+  height: 75px;
+  display: flex-inline;
+}
+
+.bidask {
+  position: relative;
+  top: 75px;
+  left: 0px;
+  display: flex-inline;
+}

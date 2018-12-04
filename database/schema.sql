@@ -17,6 +17,10 @@ CREATE TABLE trades (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
   type VARCHAR(5),
-  volume INTEGER,
+  volume DECIMAL,
   price DECIMAL
 );
+
+INSERT INTO users (username) VALUES ('satoshi');
+
+INSERT INTO trades (user_id, type, volume, price) VALUES (1, 'buy', 1, 0);

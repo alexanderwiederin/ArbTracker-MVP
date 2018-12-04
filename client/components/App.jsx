@@ -17,9 +17,9 @@ const findLowestAsk = (poloniex, hitbtc) => {
 const calculateROI = trades => trades.reduce((total, trade) => {
   let tempROI = total;
   if (trade.type === 'sell') {
-    tempROI -= trade.volume;
+    tempROI -= Number(trade.volume);
   } else {
-    tempROI += trade.volume;
+    tempROI += Number(trade.volume);
   }
   return tempROI;
 }, 1) - 1 / 1;
@@ -35,11 +35,13 @@ class App extends React.Component {
       hitbtc: {},
       highestBid: [],
       lowestAsk: [],
+      disabledButton: false,
     };
     this.getOrderBook = this.getOrderBook.bind(this);
     this.getUserTrades = this.getUserTrades.bind(this);
     this.setSpread = this.setSpread.bind(this);
     this.refreshOrderBook = this.refreshOrderBook.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +49,7 @@ class App extends React.Component {
     this.getOrderBook('poloniex');
     this.getOrderBook('hitbtc');
     this.getUserTrades(userID);
-    setInterval(() => this.refreshOrderBook('poloniex'), 10000);
+    setInterval(() => this.refreshOrderBook('poloniex'), 1000);
   }
 
   setSpread() {
@@ -80,17 +82,68 @@ class App extends React.Component {
   }
 
   refreshOrderBook() {
+    const { disabledButton } = this.state;
     this.getOrderBook('poloniex');
     this.getOrderBook('hitbtc');
+    if (disabledButton) {
+      this.setState((state) => ({ disabledButton: !state.disabledButton }));
+    }
+  }
+
+  sendTrade(type, volume, price) {
+    const { userID } = this.state;
+    axios.post(`/${userID}/trades`, {
+      userID,
+      type,
+      volume,
+      price,
+    })
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
+  }
+
+  handleClick() {
+    const { lowestAsk, highestBid, userID } = this.state;
+    const volume = lowestAsk.ask[1] < highestBid.bid[1]
+      ? lowestAsk.ask[1] : highestBid.bid[1];
+    const purchaseVolume = (highestBid.bid[0] * volume) / lowestAsk.ask[0];
+    this.sendTrade('sell', volume, highestBid.bid[0]);
+    this.sendTrade('buy', purchaseVolume, lowestAsk.ask[0]);
+    this.getUserTrades(userID);
+    this.setState((state) => ({ disabledButton: !state.disabledButton }));
   }
 
   render() {
-    const { poloniex } = this.state;
-    const { hitbtc } = this.state;
-    const { lowestAsk } = this.state;
-    const { highestBid } = this.state;
+    const {
+      poloniex,
+      hitbtc,
+      lowestAsk,
+      highestBid,
+      disabledButton,
+      ROI,
+    } = this.state;
     return (
-      <Overview poloniex={poloniex} hitbtc={hitbtc} lowestAsk={lowestAsk} highestBid={highestBid} />
+      <div>
+        <div className="account">
+          <div>
+            Balance:
+            {ROI.toFixed(6)}
+            BTC
+          </div>
+          <div>
+            ROI:
+            {((ROI - 1) * 100).toFixed(6)}
+            %
+          </div>
+        </div>
+        <Overview
+          poloniex={poloniex}
+          hitbtc={hitbtc}
+          lowestAsk={lowestAsk}
+          highestBid={highestBid}
+        />
+        <button disabled={disabledButton} type="submit" onClick={() => this.handleClick()}>Trade!</button>
+      </div>
     );
   }
 }
